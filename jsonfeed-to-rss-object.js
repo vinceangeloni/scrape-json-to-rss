@@ -120,7 +120,7 @@ module.exports = function jsonfeedToAtomObject (jf, opts) {
       const image = item.image
       const rssItem = {
         title,
-        description,
+        description: striptags(item.description),
         image,
         link: item.external_url || item.url,
         // author: getManagingEditor(item) || getManagingEditor(jf),
@@ -138,7 +138,7 @@ module.exports = function jsonfeedToAtomObject (jf, opts) {
         pubDate: date.toUTCString()
       }
       if (item.image) {
-        Object.assign(rssItem, { 'image:': get(item, 'image') } )
+        Object.assign(rssItem, { 'image': get(item, 'image') } )
       } 
       if (item.attachments && item.attachments.length > 0) {
         const attachment = item.attachments[0] // RSS only supports 1 per item!
