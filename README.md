@@ -1,4 +1,4 @@
-# jsonfeed-to-rss
+# scrape-json-to-rss
 [![npm version][2]][3] [![build status][4]][5]
 [![downloads][8]][9] [![js-standard-style][10]][11]
 
@@ -8,13 +8,13 @@ Convert a JSON feed to an rss feed ([RSS 2.0.11][rss]).  Supports the [@xmlns:it
 
 ## Installation
 ```console
-$ npm install jsonfeed-to-rss
+$ npm install scrape-json-to-rss
 ```
 
 ## Usage
 
 ```js
-const jsonfeedToRSS = require('jsonfeed-to-rss')
+const scrapeJsonToRSS = require('scrape-json-to-rss')
 const someJSONFeed = require('./load-some-json-feed-data.json')
 
 const rssFeed = jsonfeedToRSS(someJSONFeed) // Returns an rss 2.0.11 formatted json feed
