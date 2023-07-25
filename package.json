@@ -1,8 +1,8 @@
 {
-  "name": "jsonfeed-to-rss",
-  "description": "Convert a JSON feed to an rss feed",
-  "version": "3.0.7",
-  "author": "Bret Comnes <bcomnes@gmail.com> (https://bret.io)",
+  "name": "scrape-json-to-rss",
+  "description": "Convert a scraped blog JSON feed to an rss feed",
+  "version": "3.0.8",
+  "author": "Bret Comnes <bcomnes@gmail.com> (https://bret.io) / Vince Angeloni",
   "bugs": {
     "url": "https://github.com/bcomnes/jsonfeed-to-rss/issues"
   },
