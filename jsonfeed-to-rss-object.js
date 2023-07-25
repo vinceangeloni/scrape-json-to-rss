@@ -116,8 +116,12 @@ module.exports = function jsonfeedToAtomObject (jf, opts) {
       // Generate item object
       const title = generateTitle(item)
       const date = new Date(item.date_published)
+      const description = item.description
+      const image = item.image
       const rssItem = {
         title,
+        description,
+        image,
         link: item.external_url || item.url,
         // author: getManagingEditor(item) || getManagingEditor(jf),
         'dc:creator': get(item, 'author.name') || get(jf, 'author.name'),
@@ -133,7 +137,9 @@ module.exports = function jsonfeedToAtomObject (jf, opts) {
         },
         pubDate: date.toUTCString()
       }
-
+      if (item.image) {
+        Object.assign(rssItem, { 'image:': get(item, 'image') } )
+      } 
       if (item.attachments && item.attachments.length > 0) {
         const attachment = item.attachments[0] // RSS only supports 1 per item!
         rssItem.enclosure = {
