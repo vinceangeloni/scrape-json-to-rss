@@ -140,8 +140,8 @@ module.exports = function jsonfeedToAtomObject (jf, opts) {
       if (item.image) {
         Object.assign(rssItem, { 
           'enclosure': {
-            'url':get(item, 'image'),
-            'type': 'image' 
+            '@url':get(item, 'image'),
+            '@type': 'image/jpeg' 
           }
         } )
       } 
