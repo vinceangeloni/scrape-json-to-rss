@@ -121,7 +121,6 @@ module.exports = function jsonfeedToAtomObject (jf, opts) {
       const rssItem = {
         title,
         description: striptags(item.description),
-        image,
         link: item.external_url || item.url,
         // author: getManagingEditor(item) || getManagingEditor(jf),
         'dc:creator': get(item, 'author.name') || get(jf, 'author.name'),
