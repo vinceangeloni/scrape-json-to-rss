@@ -8,6 +8,7 @@ const { getSubtitle, getSummary, truncate4k, truncate250, secondsToHMS, getPodca
 const existy = require('existy')
 const truthy = require('@bret/truthy')
 const merge = require('lodash.merge')
+const ufs = require('url-file-size')
 
 module.exports = function jsonfeedToAtomObject (jf, opts) {
   const now = new Date()
