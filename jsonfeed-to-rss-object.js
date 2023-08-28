@@ -138,6 +138,7 @@ module.exports = function jsonfeedToAtomObject (jf, opts) {
         pubDate: date.toUTCString()
       }
       if (item.image) {
+        var image_url = get(item, 'image');
         // get the image size
         var GetImageSize = ufs(image_url).then((response) => {
         const image_size = response;
