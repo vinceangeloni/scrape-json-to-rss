@@ -137,13 +137,17 @@ module.exports = function jsonfeedToAtomObject (jf, opts) {
         pubDate: date.toUTCString()
       }
       if (item.image) {
-        Object.assign(rssItem, { 
-          'enclosure': {
-            '@url':get(item, 'image'),
-            '@type': 'image/jpeg',
-            '@length': get(item, 'length'),
-          }
-        } )
+        // get the image size
+        var GetImageSize = ufs(image_url).then((response) => {
+        const image_size = response;
+          Object.assign(rssItem, { 
+            'enclosure': {
+              '@url':get(item, 'image'),
+              '@type': 'image/jpeg',
+              '@length': image_size,
+            }
+          } )
+        });
       } 
       if (item.attachments && item.attachments.length > 0) {
         const attachment = item.attachments[0] // RSS only supports 1 per item!
