@@ -8,7 +8,6 @@ const { getSubtitle, getSummary, truncate4k, truncate250, secondsToHMS, getPodca
 const existy = require('existy')
 const truthy = require('@bret/truthy')
 const merge = require('lodash.merge')
-const ufs = require('url-file-size');
 
 module.exports = function jsonfeedToAtomObject (jf, opts) {
   const now = new Date()
@@ -138,15 +137,11 @@ module.exports = function jsonfeedToAtomObject (jf, opts) {
         pubDate: date.toUTCString()
       }
       if (item.image) {
-        var image_url = get(item, 'image');
-        var image_size = 0;
-        ufs(image_url).then((response) => image_size).catch(console.error);
-        console.log(image_url);
         Object.assign(rssItem, { 
           'enclosure': {
-            '@url':image_url,
+            '@url':get(item, 'image'),
             '@type': 'image/jpeg',
-            '@length': image_size,
+            '@length': get(item, 'length'),
           }
         } )
       } 
