@@ -18,6 +18,7 @@
     "striptags": "^3.2.0",
     "trim-left": "^1.0.1",
     "trim-right": "^1.0.1",
+    "url-file-size": "^1.0.5-1",
     "xmlbuilder": "^15.1.1"
   },
   "devDependencies": {
