@@ -138,9 +138,10 @@ module.exports = function jsonfeedToAtomObject (jf, opts) {
         pubDate: date.toUTCString()
       }
       if (item.image) {
-        var image_url = get(item, 'image').toString();
+        var image_url = get(item, 'image');
         var image_size = 0;
         ufs(image_url).then((response) => image_size).catch(console.error);
+        console.log(image_url);
         Object.assign(rssItem, { 
           'enclosure': {
             '@url':image_url,
