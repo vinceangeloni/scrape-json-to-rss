@@ -8,7 +8,7 @@ const { getSubtitle, getSummary, truncate4k, truncate250, secondsToHMS, getPodca
 const existy = require('existy')
 const truthy = require('@bret/truthy')
 const merge = require('lodash.merge')
-const ufs = require('url-file-size')
+import file_size_url from 'file_size_url';
 
 module.exports = function jsonfeedToAtomObject (jf, opts) {
   const now = new Date()
@@ -139,7 +139,7 @@ module.exports = function jsonfeedToAtomObject (jf, opts) {
       }
       if (item.image) {
         var image_url = get(item, 'image');
-        let image_size = await ufs(image_url).catch((error) => console.log(error));
+        let image_size = await file_size_url(image_url).catch((error) => console.log(error));
         Object.assign(rssItem, { 
           'enclosure': {
             '@url':image_url,

@@ -11,6 +11,7 @@
     "add-zero": "^1.0.0",
     "clean-deep": "^3.0.2",
     "existy": "^1.0.1",
+    "file_size_url": "^1.0.4",
     "lodash.get": "^4.4.2",
     "lodash.merge": "^4.6.1",
     "podcast-categories": "^2.0.0",
