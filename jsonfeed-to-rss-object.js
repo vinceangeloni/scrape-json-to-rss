@@ -141,12 +141,12 @@ module.exports = function jsonfeedToAtomObject (jf, opts) {
       // Gets the image size (length) of a remote image
       async function getImageSize(imageURL) {
         let result = await ufs(imageURL).then((response) => {
-          assignEnclosure(response);
+          assignEnclosure(response,imageURL);
         }).catch((error) => console.log(error));
 
         return result;
       }
-       function assignEnclosure(length) {
+       function assignEnclosure(length,image_url) {
         Object.assign(rssItem, { 
             'enclosure': {
               '@url':image_url,
