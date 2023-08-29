@@ -13,6 +13,11 @@ const ufs = require('url-file-size')
 module.exports = function jsonfeedToAtomObject (jf, opts) {
   const now = new Date()
 
+  // Gets the image size (length) of a remote image
+  async function getImageSize(imageURL) {
+    let result = ufs(imageURL).catch((error) => console.log(error));
+    return result
+  }
   opts = Object.assign({
     feedURLFn: (feedURL, jf) => feedURL.replace(/\.json\b/, '-rss.xml'),
     language: 'en-us',
@@ -140,7 +145,7 @@ module.exports = function jsonfeedToAtomObject (jf, opts) {
       if (item.image) {
         let image_size = 0;
         var image_url = get(item, 'image');
-        let getImageSize = (await (ufs(image_url).then(response => { image_size = response}).catch((error) => console.log(error))));
+        image_size = await getImageSize(image_url);
         Object.assign(rssItem, { 
           'enclosure': {
             '@url':image_url,
