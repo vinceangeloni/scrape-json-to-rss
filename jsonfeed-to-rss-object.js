@@ -8,11 +8,9 @@ const { getSubtitle, getSummary, truncate4k, truncate250, secondsToHMS, getPodca
 const existy = require('existy')
 const truthy = require('@bret/truthy')
 const merge = require('lodash.merge')
-const ufs = require('url-file-size')
 
 module.exports = function jsonfeedToAtomObject (jf, opts) {
   const now = new Date()
-
 
   opts = Object.assign({
     feedURLFn: (feedURL, jf) => feedURL.replace(/\.json\b/, '-rss.xml'),
@@ -138,26 +136,14 @@ module.exports = function jsonfeedToAtomObject (jf, opts) {
         },
         pubDate: date.toUTCString()
       }
-      // Gets the image size (length) of a remote image
-      async function getImageSize(imageURL) {
-        let result = await ufs(imageURL).then((response) => {
-          assignEnclosure(response,imageURL);
-        }).catch((error) => console.log(error));
-
-        return result;
-      }
-       function assignEnclosure(length,image_url) {
-        Object.assign(rssItem, { 
-            'enclosure': {
-              '@url':image_url,
-              '@type': 'image/jpeg',
-              '@length': length
-            }
-        } )
-      }
       if (item.image) {
-        var image_url = get(item, 'image');
-        image_size =  getImageSize(image_url);
+        Object.assign(rssItem, { 
+          'enclosure': {
+            '@url':get(item, 'image'),
+            '@type': 'image/jpeg',
+            '@length': '112',
+          }
+        } )
       } 
       if (item.attachments && item.attachments.length > 0) {
         const attachment = item.attachments[0] // RSS only supports 1 per item!
