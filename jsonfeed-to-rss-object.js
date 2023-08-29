@@ -13,11 +13,7 @@ const ufs = require('url-file-size')
 module.exports = function jsonfeedToAtomObject (jf, opts) {
   const now = new Date()
 
-  // Gets the image size (length) of a remote image
-  async function getImageSize(imageURL) {
-    let result = await ufs(imageURL).catch((error) => console.log(error));
-    return result
-  }
+
   opts = Object.assign({
     feedURLFn: (feedURL, jf) => feedURL.replace(/\.json\b/, '-rss.xml'),
     language: 'en-us',
@@ -142,17 +138,26 @@ module.exports = function jsonfeedToAtomObject (jf, opts) {
         },
         pubDate: date.toUTCString()
       }
+      // Gets the image size (length) of a remote image
+      async function getImageSize(imageURL) {
+        let result = await ufs(imageURL).then((response) => {
+          assignEnclosure(response);
+        }).catch((error) => console.log(error));
+
+        return result;
+      }
+       function assignEnclosure(length) {
+        Object.assign(rssItem.enclosure, { 
+            'enclosure': {
+              '@url':image_url,
+              '@type': 'image/jpeg',
+              '@length': length
+            }
+        } )
+      }
       if (item.image) {
-        let image_size = 0;
         var image_url = get(item, 'image');
         image_size =  getImageSize(image_url);
-        Object.assign(rssItem, { 
-          'enclosure': {
-            '@url':image_url,
-            '@type': 'image/jpeg',
-            '@length': image_size,
-          }
-        } )
       } 
       if (item.attachments && item.attachments.length > 0) {
         const attachment = item.attachments[0] // RSS only supports 1 per item!
